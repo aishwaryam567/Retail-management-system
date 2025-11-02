@@ -19,4 +19,21 @@ async function getUserById(id) {
   return data && data[0];
 }
 
-module.exports = { createUser, getUserByEmail, getUserById };
+async function listUsers({ limit = 50, offset = 0 } = {}) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+  if (error) throw error;
+  return data;
+}
+
+async function updateUser(id, updates) {
+  updates.updated_at = new Date().toISOString();
+  const { data, error } = await supabase.from('users').update(updates).eq('id', id).select();
+  if (error) throw error;
+  return data[0];
+}
+
+module.exports = { createUser, getUserByEmail, getUserById, listUsers, updateUser };
