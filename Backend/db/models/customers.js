@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createCustomer({ name, phone, email, metadata = {} }) {
   const payload = { name, phone, email, loyalty_points: 0, metadata };

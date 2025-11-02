@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createInvoice({ invoice_number, type, customer_id, created_by, subtotal_paise, tax_total_paise, discount_paise, total_paise }) {
   const payload = {

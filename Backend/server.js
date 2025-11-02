@@ -1,8 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 const supabase = require('./db/supabaseClient');
+
+// CORS Configuration
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // Middleware to parse JSON
 app.use(express.json());

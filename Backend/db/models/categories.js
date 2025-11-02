@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createCategory({ name, description }) {
   const payload = { name, description };

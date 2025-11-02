@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createSupplier({ name, contact = {}, gst_number, address }) {
   const payload = { name, contact, gst_number, address };

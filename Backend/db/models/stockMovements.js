@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createStockMovement({ product_id, change_qty, reason, ref_id, created_by }) {
   const payload = { product_id, change_qty, reason, ref_id, created_by };

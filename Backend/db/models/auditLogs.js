@@ -1,4 +1,4 @@
-const supabase = require('./db/supabaseClient');
+const supabase = require('../supabaseClient');
 
 async function createAuditLog({ actor_id, action, object_type, object_id, changes }) {
   const payload = { actor_id, action, object_type, object_id, changes };

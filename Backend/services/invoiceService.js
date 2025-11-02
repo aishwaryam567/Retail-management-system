@@ -1,11 +1,11 @@
-const { generateInvoiceNumber, createInvoice, getInvoiceWithItems } = require('./db/models/invoices');
-const { createInvoiceItems } = require('./db/models/invoiceItems');
-const { createStockMovements } = require('./db/models/stockMovements');
-const { updateStock, getProductById } = require('./db/models/products');
-const { addLoyaltyPoints, getCustomerById } = require('./db/models/customers');
-const { createAuditLog } = require('./db/models/auditLogs');
-const { calculateInvoiceTotals } = require('./utils/invoiceCalculator');
-const { rupeesToPaise } = require('./utils/pricing');
+const { generateInvoiceNumber, createInvoice, getInvoiceWithItems } = require('../db/models/invoices');
+const { createInvoiceItems } = require('../db/models/invoiceItems');
+const { createStockMovements } = require('../db/models/stockMovements');
+const { updateStock, getProductById } = require('../db/models/products');
+const { addLoyaltyPoints, getCustomerById } = require('../db/models/customers');
+const { createAuditLog } = require('../db/models/auditLogs');
+const { calculateInvoiceTotals } = require('../utils/invoiceCalculator');
+const { rupeesToPaise } = require('../utils/pricing');
 
 /**
  * Create a sale invoice with automatic calculations and stock updates
