@@ -336,4 +336,3 @@ CRUD APIs for products, categories.
 
 Implement stock movement APIs and DB transactions for atomic updates.
 
-Add bulk import endpoint (CSV parsing) with validation.
