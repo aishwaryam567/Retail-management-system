@@ -1,281 +1,469 @@
 # 🛒 Retail Management System with GST Billing
 
-A comprehensive retail management system with GST-compliant invoicing, inventory management, and reporting built with React, Node.js, Express, and PostgreSQL (Supabase).
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![React Version](https://img.shields.io/badge/react-19.0.0-blue)](https://reactjs.org/)
 
-## 📋 Features
+A comprehensive, production-ready retail management system with GST-compliant invoicing, inventory management, and advanced reporting capabilities. Built with modern web technologies for small to medium retail businesses.
 
-### Core Features (MVP)
-- ✅ User Authentication (JWT-based)
-- ✅ Role-based Access Control (Owner, Admin, Cashier, Stock Manager)
-- 🔄 Product Management with Categories
-- 🔄 Customer Management with Loyalty Points
-- 🔄 Supplier Management
-- 🔄 Invoice Generation with GST Calculation
-- 🔄 Automated Stock Management
-- 🔄 Purchase Order System
-- 🔄 Comprehensive Reports (Sales, GST, Inventory, Profit)
-- 🔄 Dashboard with Real-time Statistics
+## ✨ Features
 
-### Advanced Features (Planned)
-- Invoice PDF Generation
-- Barcode Scanner Integration
-- Return/Refund Handling
-- Audit Logs
-- CSV/Excel Export
-- Email Notifications
+### 🏪 Core Business Features
+- **📊 Dashboard** - Real-time sales, inventory, and profit analytics
+- **👥 User Management** - Role-based access (Owner, Admin, Cashier, Stock Manager)
+- **📦 Product Management** - Complete catalog with categories, GST rates, and HSN codes
+- **👤 Customer Management** - Customer database with loyalty points system
+- **🏢 Supplier Management** - Vendor database and purchase order tracking
+- **🧾 GST-Compliant Invoicing** - Automatic GST calculation (CGST/SGST/IGST)
+- **📈 Inventory Control** - Automated stock management with low-stock alerts
+- **🛒 Point of Sale (POS)** - Fast, intuitive sales interface
+- **📋 Purchase Orders** - Supplier ordering and stock replenishment
+- **📊 Advanced Reports** - Sales, GST, inventory, and profit reports
+- **🔍 Audit Trail** - Complete transaction history and logs
+
+### 🛠️ Technical Features
+- **🔐 JWT Authentication** - Secure user sessions
+- **📱 Responsive Design** - Works on desktop, tablet, and mobile
+- **⚡ Real-time Updates** - Live dashboard statistics
+- **🗄️ PostgreSQL Database** - Robust data storage with Supabase
+- **🔄 RESTful API** - Well-documented backend endpoints
+- **🎨 Modern UI** - Clean, professional interface with Tailwind CSS
 
 ## 🏗️ Tech Stack
 
 ### Frontend
-- **React 19** with Vite
-- **React Router** for navigation
-- UI library (TailwindCSS / Material-UI / Ant Design)
-- Axios for API calls
+- **React 19** - Latest React with hooks and concurrent features
+- **Vite** - Fast build tool and development server
+- **React Router** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Axios** - HTTP client for API calls
+- **Context API** - State management
 
 ### Backend
-- **Node.js** with Express
-- **Supabase** (PostgreSQL database)
-- **JWT** for authentication
-- **bcryptjs** for password hashing
+- **Node.js 18+** - JavaScript runtime
+- **Express.js** - Web framework
+- **Supabase** - PostgreSQL database hosting
+- **JWT** - JSON Web Token authentication
+- **bcryptjs** - Password hashing
+- **CORS** - Cross-origin resource sharing
 
 ### Database
-- **PostgreSQL** (hosted on Supabase)
-- 10 tables with proper relations
-- Materialized views for reports
-- Prices stored in paise (integer) to avoid floating-point errors
+- **PostgreSQL** - Relational database
+- **Supabase** - Managed PostgreSQL service
+- **10 Tables** - Comprehensive data model
+- **Materialized Views** - Optimized reporting queries
 
-## 📊 Database Schema
+## 📋 Prerequisites
 
-### Tables
-1. **users** - User accounts with roles
-2. **categories** - Product categories
-3. **products** - Product catalog with GST rates
-4. **customers** - Customer database with loyalty points
-5. **suppliers** - Supplier information
-6. **invoices** - Sales invoices (sale/return)
-7. **invoice_items** - Invoice line items
-8. **purchases** - Purchase orders
-9. **stock_movements** - Stock movement ledger
-10. **audit_logs** - Audit trail
+Before running this application, make sure you have:
 
-## 🚀 Getting Started
+- **Node.js** (v18.0.0 or higher) - [Download here](https://nodejs.org/)
+- **Git** - [Download here](https://git-scm.com/)
+- **Supabase Account** - [Sign up here](https://supabase.com/)
+- **Code Editor** (VS Code recommended)
 
-### Prerequisites
-- Node.js (v18 or higher)
-- Supabase account
-- Git
+## 🚀 Quick Start
 
-### Installation
-
-1. **Clone the repository**
+### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd retail-management-with-gst-billing
+git clone https://github.com/your-username/retail-management-system.git
+cd retail-management-system
 ```
 
-2. **Setup Backend**
+### 2. Environment Setup
+
+#### Backend Configuration
 ```bash
 cd Backend
 
-# Install dependencies
-npm install
-
-# Organize files (if not done)
-.\organize-files.ps1  # Windows
-# or follow Backend/SETUP_INSTRUCTIONS.md
-
-# Configure environment
+# Copy environment template
 cp .env.example .env
-# Edit .env with your Supabase credentials and JWT_SECRET
 
-# Start development server
-npm run dev
+# Edit .env file with your credentials
+# Required variables:
+# SUPABASE_URL=your_supabase_project_url
+# SUPABASE_ANON_KEY=your_supabase_anon_key
+# JWT_SECRET=your_jwt_secret_key
+# PORT=3000
 ```
 
-3. **Setup Frontend**
+#### Frontend Configuration
 ```bash
-cd Frontend
+cd ../Frontend
 
-# Install dependencies
+# Copy environment template (if exists)
+cp .env.example .env  # If available
+```
+
+### 3. Database Setup
+
+1. **Create Supabase Project**
+   - Go to [supabase.com](https://supabase.com)
+   - Create a new project
+   - Note down your project URL and anon key
+
+2. **Run Database Migrations**
+   ```bash
+   # From project root
+   cd db/migrations
+   # Run the SQL file in your Supabase SQL editor
+   # File: 001_create_tables.sql
+   ```
+
+
+### 4. Install Dependencies
+
+#### Backend
+```bash
+cd Backend
 npm install
+```
 
-# Start development server
+#### Frontend
+```bash
+cd ../Frontend
+npm install
+```
+
+### 5. Start the Application
+
+#### Option A: Development Mode (Recommended)
+```bash
+# Terminal 1: Backend
+cd Backend
+nodeman server-fixed.js
+
+# Terminal 2: Frontend
+cd ../Frontend
 npm run dev
 ```
 
-4. **Access the application**
-- Frontend: http://localhost:5173
-- Backend: http://localhost:3000
-- Health Check: http://localhost:3000/health/db
+#### Option B: Production Build
+```bash
+# Backend
+cd Backend
+nodeman server-fixed.js
+
+# Frontend (build and serve)
+cd ../Frontend
+npm run build
+npm run preview
+```
+
+### 6. Access the Application
+
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:3000
+- **API Health Check**: http://localhost:3000/health/db
 
 ## 📁 Project Structure
 
 ```
-retail-management-with-gst-billing/
-├── Backend/
+retail-management-system/
+├── Backend/                          # Express.js API Server
 │   ├── db/
-│   │   ├── models/          # Database models (10 files)
-│   │   └── supabaseClient.js
-│   ├── utils/               # Utilities (pricing, calculations)
-│   ├── middleware/          # Auth, validation, error handling
-│   ├── routes/              # API routes (to be created)
-│   ├── services/            # Business logic (to be created)
-│   ├── .env                 # Environment variables
+│   │   ├── models/                   # Database models (10 files)
+│   │   │   ├── users.js
+│   │   │   ├── products.js
+│   │   │   ├── categories.js
+│   │   │   ├── customers.js
+│   │   │   ├── suppliers.js
+│   │   │   ├── invoices.js
+│   │   │   ├── invoiceItems.js
+│   │   │   ├── purchases.js
+│   │   │   ├── stockMovements.js
+│   │   │   └── auditLogs.js
+│   │   └── supabaseClient.js         # Database connection
+│   ├── middleware/
+│   │   ├── auth.js                   # JWT authentication
+│   │   ├── errorHandler.js           # Error handling
+│   │   └── validator.js              # Input validation
+│   ├── routes/                       # API route handlers
+│   │   ├── auth-routes.js
+│   │   ├── products-routes.js
+│   │   ├── categories-routes.js
+│   │   ├── customers-routes.js
+│   │   ├── suppliers-routes.js
+│   │   ├── invoices-routes.js
+│   │   ├── purchases-routes.js
+│   │   ├── stock-routes.js
+│   │   ├── reports-routes.js
+│   │   └── dashboard-routes.js
+│   ├── services/
+│   │   └── invoiceService.js         # Business logic
+│   ├── utils/
+│   │   ├── invoiceCalculator.js      # GST calculations
+│   │   └── pricing.js                # Price utilities
+│   ├── server-fixed.js               # Main server file
 │   ├── package.json
-│   └── server.js            # Express server
+│   └── .env                          # Environment variables
 │
-├── Frontend/
+├── Frontend/                         # React Application
+│   ├── public/
+│   │   └── vite.svg
 │   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API calls
-│   │   ├── context/         # React context
-│   │   ├── utils/           # Helpers
-│   │   ├── App.jsx
-│   │   └── main.jsx
+│   │   ├── components/
+│   │   │   ├── common/               # Reusable components
+│   │   │   │   ├── Button.jsx
+│   │   │   │   ├── Card.jsx
+│   │   │   │   └── Input.jsx
+│   │   │   └── layout/               # Layout components
+│   │   │       ├── Layout.jsx
+│   │   │       ├── Navbar.jsx
+│   │   │       └── Sidebar.jsx
+│   │   ├── pages/                    # Page components
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── POS.jsx
+│   │   │   ├── Products.jsx
+│   │   │   ├── Categories.jsx
+│   │   │   ├── Customers.jsx
+│   │   │   ├── Invoices.jsx
+│   │   │   ├── Stock.jsx
+│   │   │   ├── Reports.jsx
+│   │   │   ├── Suppliers.jsx
+│   │   │   ├── Purchases.jsx
+│   │   │   ├── auth/
+│   │   │   │   ├── Login.jsx
+│   │   │   │   └── Register.jsx
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx       # Authentication context
+│   │   ├── services/
+│   │   │   ├── api.js                # API client
+│   │   │   └── auth.js               # Auth utilities
+│   │   ├── utils/
+│   │   │   ├── constants.js          # App constants
+│   │   │   └── formatters.js         # Data formatters
+│   │   ├── App.jsx                   # Main app component
+│   │   ├── main.jsx                  # App entry point
+│   │   └── index.css                 # Global styles
 │   ├── package.json
-│   └── vite.config.js
+│   ├── vite.config.js                # Vite configuration
+│   ├── tailwind.config.js            # Tailwind configuration
+│   └── eslint.config.js              # ESLint configuration
 │
 ├── db/
-│   └── migrations/          # Database migrations
+│   └── migrations/
+│       └── 001_create_tables.sql     # Database schema
 │
-├── IMPLEMENTATION_PLAN.md   # 8-week implementation guide
-├── WEEK1_PROGRESS.md        # Week 1 progress tracker
-├── QUICK_START.md           # Quick start guide
-└── README.md               # This file
+├── docs/                             # Documentation
+│   ├── START_HERE.md                 # Quick start guide
+│   ├── MASTER_REFERENCE.md           # Complete reference
+│   ├── IMPLEMENTATION_PLAN.md        # Development roadmap
+│   └── UNUSED_FILES_CLEANUP.md       # Cleanup guide
+│
+├── .gitignore                        # Git ignore rules
+├── README.md                         # This file
+└── package.json                      # Root package file
 ```
 
-## 📚 Documentation
+## 🔑 API Documentation
 
-- **[Implementation Plan](IMPLEMENTATION_PLAN.md)** - Complete 8-week development roadmap
-- **[Week 1 Progress](WEEK1_PROGRESS.md)** - Current progress and checklist
-- **[Quick Start](QUICK_START.md)** - Get up and running quickly
-- **[Setup Instructions](Backend/SETUP_INSTRUCTIONS.md)** - Backend setup guide
+### Authentication Endpoints
 
-## 🗓️ Development Roadmap
+```http
+POST /api/auth/login
+POST /api/auth/register
+POST /api/auth/logout
+GET  /api/auth/me
+```
 
-### ✅ Week 1: Backend Foundation (Current)
-- [x] Database models (all 10 tables)
-- [x] Utilities (pricing, GST calculations)
-- [x] Middleware (auth, validation, error handling)
-- [ ] Authentication routes
-- [ ] File organization
+### Product Management
 
-### 🔄 Week 2: Core API Endpoints
-- Product & Category APIs
-- Customer & Supplier APIs
-- Invoice & Sales API
+```http
+GET    /api/products          # List products
+POST   /api/products          # Create product
+GET    /api/products/:id      # Get product
+PUT    /api/products/:id      # Update product
+DELETE /api/products/:id      # Delete product
+```
 
-### 📅 Week 3: Purchases, Stock & Reports
-- Purchase order system
-- Stock management
-- Reports API
+### Categories
 
-### 📅 Week 4: Frontend Foundation
-- React setup & routing
-- Authentication UI
-- Dashboard
+```http
+GET    /api/categories        # List categories
+POST   /api/categories        # Create category
+GET    /api/categories/:id    # Get category
+PUT    /api/categories/:id    # Update category
+DELETE /api/categories/:id    # Delete category
+```
 
-### 📅 Week 5: Product & Inventory UI
-- Product management
-- Category management
-- Stock movements
+### Customers
 
-### 📅 Week 6: Sales & Invoicing UI
-- POS interface
-- Invoice creation
-- Returns handling
+```http
+GET    /api/customers         # List customers
+POST   /api/customers         # Create customer
+GET    /api/customers/:id     # Get customer
+PUT    /api/customers/:id     # Update customer
+DELETE /api/customers/:id     # Delete customer
+```
 
-### 📅 Week 7: Customers, Suppliers & Reports UI
-- Customer/Supplier management
-- Purchase orders UI
-- Reports with charts
+### Invoices
 
-### 📅 Week 8: Advanced Features & Polish
-- PDF generation
-- Barcode scanning
-- Testing & bug fixes
-
-## 🔑 Key Features Explanation
-
-### GST Calculation
-- Supports all GST rates (0%, 5%, 12%, 18%, 28%)
-- Automatic CGST/SGST split for intra-state
-- IGST for inter-state transactions
-- HSN code support
-
-### Price Storage
-- All prices stored in **paise** (1 rupee = 100 paise)
-- Avoids floating-point arithmetic errors
-- Ensures accuracy in calculations
+```http
+GET    /api/invoices          # List invoices
+POST   /api/invoices          # Create invoice
+GET    /api/invoices/:id      # Get invoice
+PUT    /api/invoices/:id      # Update invoice
+DELETE /api/invoices/:id      # Delete invoice
+```
 
 ### Stock Management
-- Automatic stock updates on sales
-- Stock movement ledger (sale, purchase, adjustment, return)
-- Low stock alerts
-- Reorder level tracking
 
-### Invoice System
-- Automatic invoice number generation
-- Support for sales and returns
-- GST-compliant invoice format
-- PDF generation (planned)
+```http
+GET    /api/stock/adjustment  # Get stock adjustments
+POST   /api/stock/adjustment  # Create stock adjustment
+GET    /api/stock/movements   # Get stock movements
+```
 
-## 🔐 Security
+### Reports
 
-- JWT-based authentication
-- Password hashing with bcryptjs
-- Role-based access control
-- Input validation on all endpoints
-- SQL injection prevention (Supabase parameterized queries)
-- CORS configuration
+```http
+GET    /api/reports/sales?from_date=2025-01-01&to_date=2025-12-31
+GET    /api/reports/gst?from_date=2025-01-01&to_date=2025-12-31
+GET    /api/reports/inventory
+GET    /api/reports/profit?from_date=2025-01-01&to_date=2025-12-31
+```
+
+### Dashboard
+
+```http
+GET    /api/dashboard/stats    # Dashboard statistics
+GET    /api/dashboard/sales    # Sales chart data
+GET    /api/dashboard/top-products  # Top products
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+#### Backend (.env)
+```env
+# Supabase Configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Optional: Email Configuration (for future features)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+```
+
+#### Frontend (.env)
+```env
+VITE_API_BASE_URL=http://localhost:3000
+```
+
+### Database Schema
+
+The application uses 10 main tables:
+
+1. **users** - User accounts and authentication
+2. **categories** - Product categories
+3. **products** - Product catalog with GST information
+4. **customers** - Customer database
+5. **suppliers** - Supplier/vendor information
+6. **invoices** - Sales invoices
+7. **invoice_items** - Invoice line items
+8. **purchases** - Purchase orders
+9. **stock_movements** - Inventory movement history
+10. **audit_logs** - System audit trail
 
 ## 🧪 Testing
 
+### Backend Tests
 ```bash
-# Backend
 cd Backend
 npm test
+```
 
-# Frontend
+### Frontend Tests
+```bash
 cd Frontend
 npm test
 ```
 
-## 📝 API Documentation
+### Manual Testing
+- Use the provided `TEST_LOGIN.html` for basic authentication testing
+- Check API endpoints with tools like Postman or Insomnia
 
-API endpoints documentation will be available at:
-- Postman Collection (to be created)
-- Swagger/OpenAPI docs (planned)
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**1. Database Connection Error**
+```
+Error: connect ECONNREFUSED
+```
+- Check your Supabase URL and anon key in `.env`
+- Ensure Supabase project is active
+- Verify database migrations are applied
+
+**2. Authentication Issues**
+```
+Error: Invalid token
+```
+- Check JWT_SECRET in `.env`
+- Ensure token hasn't expired
+- Verify user credentials
+
+**3. Port Already in Use**
+```
+Error: listen EADDRINUSE: address already in use :::3000
+```
+```bash
+# Find process using port 3000
+netstat -ano | findstr :3000
+# Kill the process
+taskkill /PID <PID> /F
+```
+
+**4. CORS Errors**
+```
+Access to XMLHttpRequest blocked by CORS policy
+```
+- Check CORS configuration in `server-fixed.js`
+- Ensure frontend is running on correct port
+
+**5. Build Errors**
+```bash
+cd Frontend
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Health Checks
+
+- **Database**: `GET /health/db`
+- **Server**: `GET /health`
+- **Frontend**: Check browser console for errors
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
 
-## 📄 License
+## 📊 System Requirements
 
-This project is licensed under the ISC License.
+### Minimum Requirements
+- **OS**: Windows 10+, macOS 10.15+, Ubuntu 18.04+
+- **RAM**: 4GB
+- **Storage**: 500MB free space
+- **Network**: Stable internet connection
 
-## 👥 Team
+### Recommended Requirements
+- **OS**: Windows 11, macOS 12+, Ubuntu 20.04+
+- **RAM**: 8GB
+- **Storage**: 1GB free space
+- **Network**: High-speed internet
 
-- **Developer**: [Your Name]
-- **Project Type**: Retail Management System
-- **Start Date**: November 2025
-
-## 📞 Support
-
-For issues and questions:
-- Check documentation in the `/docs` folder
-- Review `IMPLEMENTATION_PLAN.md` for detailed guidance
-- Open an issue on GitHub
-
----
-
-**Current Status**: Week 1 (Days 1-4) Complete ✅  
-**Next Steps**: Organize files → Create auth routes → Test API
-
-**Last Updated**: 2025-11-02
