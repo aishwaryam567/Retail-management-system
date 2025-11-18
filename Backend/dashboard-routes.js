@@ -55,10 +55,13 @@ router.get('/stats', authenticate, asyncHandler(async (req, res) => {
   // Get low stock count
   const { data: lowStockProducts, error: stockError } = await supabase
     .from('products')
-    .select('id')
-    .filter('current_stock', 'lte', 'reorder_level');
+    .select('id, current_stock, reorder_level');
 
   if (stockError) throw stockError;
+
+  // Filter products that are low on stock (current_stock <= reorder_level)
+  const lowStockFiltered = lowStockProducts.filter(p => p.current_stock <= (p.reorder_level || 0));
+  const outOfStock = lowStockFiltered.filter(p => p.current_stock === 0);
 
   // Get customer count
   const { count: customerCount, error: custError } = await supabase
@@ -87,8 +90,8 @@ router.get('/stats', authenticate, asyncHandler(async (req, res) => {
       },
       inventory: {
         total_products: productCount,
-        low_stock_items: lowStockProducts.length,
-        out_of_stock_items: lowStockProducts.filter(p => p.current_stock === 0).length
+        low_stock_items: lowStockFiltered.length,
+        out_of_stock_items: outOfStock.length
       },
       customers: {
         total: customerCount
@@ -129,16 +132,17 @@ router.get('/recent-sales', authenticate, asyncHandler(async (req, res) => {
 router.get('/low-stock', authenticate, asyncHandler(async (req, res) => {
   const { limit = 10 } = req.query;
 
-  const { data: products, error } = await supabase
+  const { data: allProducts, error } = await supabase
     .from('products')
     .select('id, sku, name, current_stock, reorder_level, categories(name)')
-    .filter('current_stock', 'lte', 'reorder_level')
-    .order('current_stock', { ascending: true })
-    .limit(parseInt(limit));
+    .order('current_stock', { ascending: true });
 
   if (error) throw error;
 
-  const lowStock = products.map(p => ({
+  // Filter for low stock items (current_stock <= reorder_level)
+  const lowStockProducts = allProducts.filter(p => p.current_stock <= (p.reorder_level || 0)).slice(0, parseInt(limit));
+
+  const lowStock = lowStockProducts.map(p => ({
     id: p.id,
     sku: p.sku,
     name: p.name,

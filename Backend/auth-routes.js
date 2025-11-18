@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { generateToken, authenticate } = require('./middleware/auth');
 const { asyncHandler } = require('./middleware/errorHandler');
 const { validateRequired, validateEmail, validateRole } = require('./middleware/validator');
-const { createUser, getUserByEmail, getUserById, updateUser } = require('./db/models/users');
+const { createUser, getUserByEmail, getUserById, updateUser, verifyPassword } = require('./db/models/users');
 const { createAuditLog } = require('./db/models/auditLogs');
 
 // POST /api/auth/register - Register new user
@@ -31,18 +31,13 @@ router.post('/register', validateRequired(['email', 'full_name', 'password', 'ro
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // Create user (Note: In production, store password in a separate auth table or use Supabase Auth)
-  // For now, we'll store it in metadata (not ideal, but works for development)
+  // For now, we'll store it in the users table with password_hash
   const user = await createUser({
     email,
     full_name,
-    role
-  });
-
-  // In a real app, you'd store the password hash separately
-  // For this demo, we're using Supabase which can handle auth separately
-  // This is a simplified version
-
-  // Create audit log
+    role,
+    password  // This will be hashed in the createUser function
+  });  // Create audit log
   await createAuditLog({
     actor_id: user.id,
     action: 'USER_REGISTERED',
@@ -79,13 +74,13 @@ router.post('/login', validateRequired(['email', 'password']), asyncHandler(asyn
     return res.status(401).json({ error: 'Invalid email or password' });
   }
 
-  // In production: Verify password against stored hash
-  // For this demo with Supabase, you'd use Supabase Auth
-  // This is simplified - in reality, use Supabase's built-in auth
+  // Verify password using bcryptjs
+  const isPasswordValid = await verifyPassword(password, user.password_hash);
   
-  // For demo purposes, we'll accept any password (NOT SECURE - FIX IN PRODUCTION)
-  // TODO: Implement proper password verification
-  
+  if (!isPasswordValid) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
   // Generate JWT token
   const token = generateToken(user);
 

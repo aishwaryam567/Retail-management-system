@@ -43,7 +43,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const { confirmPassword, ...registrationData } = formData;
+      const { confirmPassword: _confirmPassword, ...registrationData } = formData;
       await register(registrationData);
       navigate('/dashboard');
     } catch (err) {
@@ -54,31 +54,26 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#C0C9EE] via-[#A2AADB] to-[#898AC4] relative overflow-hidden py-12">
-      {/* Decorative circles */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-[#FFF2E0] rounded-full opacity-20 blur-3xl"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#898AC4] rounded-full opacity-10 blur-3xl"></div>
-      
-      <div className="bg-[#FFF2E0] p-10 rounded-3xl shadow-2xl w-full max-w-md relative z-10 backdrop-blur-sm border border-white/20">
-        {/* Logo/Icon */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#A2AADB] to-[#898AC4] rounded-2xl mb-4 shadow-lg">
-            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-            </svg>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 via-indigo-50 to-blue-50 py-8">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-purple-100">
+          {/* Logo/Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4">
+              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
+            <p className="text-gray-600 text-sm">Join Retail POS</p>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-[#898AC4] to-[#A2AADB] bg-clip-text text-transparent mb-2">
-            Create Account
-          </h1>
-          <p className="text-[#898AC4] text-sm font-medium">Join Retail POS today</p>
-        </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg flex items-start gap-3">
-            <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start gap-3">
+            <svg className="w-5 h-5 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRole="evenodd" />
             </svg>
-            <span className="text-sm">{error}</span>
+            <span className="text-sm font-medium">{error}</span>
           </div>
         )}
 
@@ -124,28 +119,35 @@ const Register = () => {
           />
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-[#898AC4] mb-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
               Role <span className="text-red-500">*</span>
             </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border-2 border-[#C0C9EE] hover:border-[#A2AADB] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A2AADB] focus:border-[#A2AADB] transition-all duration-200"
-              required
-            >
-              <option value="cashier">Cashier</option>
-              <option value="stock_manager">Stock Manager</option>
-              <option value="admin">Admin</option>
-              <option value="owner">Owner</option>
-            </select>
+            <div className="relative">
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border-2 border-purple-200 text-gray-800 hover:border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-100 focus:border-purple-500 transition-all duration-200 appearance-none"
+                required
+              >
+                <option value="cashier">Cashier</option>
+                <option value="stock_manager">Stock Manager</option>
+                <option value="admin">Admin</option>
+                <option value="owner">Owner</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <svg className="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <Button
             type="submit"
             fullWidth
             disabled={loading}
-            className="mt-6 !bg-gradient-to-r from-[#898AC4] to-[#A2AADB] hover:from-[#7879B3] hover:to-[#9199CA] text-white py-3 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+            className="mt-6 bg-purple-600! hover:bg-purple-700 text-white py-3 text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 border-0"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -166,17 +168,17 @@ const Register = () => {
           </Button>
         </form>
 
-        <div className="mt-8 text-center">
-          <p className="text-[#898AC4] text-sm">
+        <div className="mt-6 text-center">
+          <p className="text-gray-600 text-sm">
             Already have an account?{' '}
-            <Link to="/login" className="text-[#898AC4] hover:text-[#7879B3] underline font-semibold transition-colors">
-              Sign in here
+            <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold transition-colors">
+              Sign in
             </Link>
           </p>
         </div>
       </div>
     </div>
+    </div>
   );
 };
-
 export default Register;

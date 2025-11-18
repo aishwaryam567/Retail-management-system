@@ -43,31 +43,26 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-secondary-100 to-accent-100 relative overflow-hidden">
-      {/* Decorative circles */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-primary-50 rounded-full opacity-20 blur-3xl"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary-200 rounded-full opacity-10 blur-3xl"></div>
-
-      <div className="bg-primary-50 p-10 rounded-3xl shadow-2xl w-full max-w-md relative z-10 backdrop-blur-sm border border-white/20">
-        {/* Logo/Icon */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-secondary-200 to-accent-200 rounded-2xl mb-4 shadow-lg">
-            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg>
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-50 via-indigo-50 to-blue-50">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-purple-100">
+          {/* Logo/Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg mb-4">
+              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Retail POS</h1>
+            <p className="text-gray-600 text-sm">Sign in to your account</p>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-accent-200 to-secondary-200 bg-clip-text text-transparent mb-2">
-            Retail POS
-          </h1>
-          <p className="text-accent-200 text-sm font-medium">Welcome back! Please sign in to continue</p>
-        </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg flex items-start gap-3">
-            <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start gap-3">
+            <svg className="w-5 h-5 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
             </svg>
-            <span className="text-sm">{error}</span>
+            <span className="text-sm font-medium">{error}</span>
           </div>
         )}
 
@@ -92,11 +87,11 @@ const Login = () => {
             required
           />
 
-          <Button
+                    <Button
             type="submit"
             fullWidth
             disabled={loading}
-            className="mt-6 !bg-gradient-to-r from-accent-200 to-secondary-200 hover:from-accent-300 hover:to-secondary-300 text-white py-3 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+            className="mt-6 bg-purple-600! hover:bg-purple-700 text-white py-3 text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 border-0"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -117,25 +112,19 @@ const Login = () => {
           </Button>
         </form>
 
-        <div className="mt-8 text-center">
-          <p className="text-accent-200 text-sm">
+                <div className="mt-6 text-center">
+          <p className="text-gray-600 text-sm">
             Don't have an account?{' '}
-            <Link to="/register" className="text-accent-200 hover:text-accent-300 underline font-semibold transition-colors">
-              Create one now
+            <Link to="/register" className="text-purple-600 hover:text-purple-700 font-semibold transition-colors">
+              Create one
             </Link>
           </p>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-secondary-200">
-          <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 text-center">
-            <p className="text-xs text-accent-200 font-medium mb-2">Demo Credentials</p>
-            <div className="font-mono text-sm text-accent-200 bg-white rounded-lg py-2 px-4 inline-block shadow-sm">
-              owner@example.com / password123
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+      </div>
+  
   );
 };
 

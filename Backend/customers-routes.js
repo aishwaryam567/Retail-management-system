@@ -124,7 +124,7 @@ router.post('/', authenticate, authorize('owner', 'admin', 'cashier'),
 
 // PUT /api/customers/:id - Update customer
 router.put('/:id', authenticate, authorize('owner', 'admin', 'cashier'), asyncHandler(async (req, res) => {
-  const { name, phone, email, metadata } = req.body;
+  const { name, phone, email, loyalty_points, metadata } = req.body;
 
   // Check if customer exists
   const existingCustomer = await getCustomerById(req.params.id);
@@ -142,6 +142,7 @@ router.put('/:id', authenticate, authorize('owner', 'admin', 'cashier'), asyncHa
   if (name !== undefined) updates.name = name;
   if (phone !== undefined) updates.phone = phone;
   if (email !== undefined) updates.email = email;
+  if (loyalty_points !== undefined) updates.loyalty_points = parseInt(loyalty_points) || 0;
   if (metadata !== undefined) updates.metadata = metadata;
 
   const customer = await updateCustomer(req.params.id, updates);

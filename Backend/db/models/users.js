@@ -1,7 +1,14 @@
 const supabase = require('../supabaseClient');
+const bcryptjs = require('bcryptjs');
 
-async function createUser({ email, full_name, role }) {
-  const payload = { email, full_name, role };
+async function createUser({ email, full_name, role, password }) {
+  // Hash password if provided
+  let passwordHash = null;
+  if (password) {
+    passwordHash = await bcryptjs.hash(password, 10);
+  }
+  
+  const payload = { email, full_name, role, password_hash: passwordHash };
   const { data, error } = await supabase.from('users').insert([payload]).select();
   if (error) throw error;
   return data[0];
@@ -36,4 +43,9 @@ async function updateUser(id, updates) {
   return data[0];
 }
 
-module.exports = { createUser, getUserByEmail, getUserById, listUsers, updateUser };
+async function verifyPassword(plainPassword, hashedPassword) {
+  if (!hashedPassword) return false;
+  return await bcryptjs.compare(plainPassword, hashedPassword);
+}
+
+module.exports = { createUser, getUserByEmail, getUserById, listUsers, updateUser, verifyPassword };

@@ -6,6 +6,8 @@ const { validateRequired } = require('./middleware/validator');
 const { createSaleInvoice, createReturnInvoice, createQuickSale } = require('./services/invoiceService');
 const { listInvoices, getInvoiceWithItems } = require('./db/models/invoices');
 const { paiseToRupees, rupeesToPaise } = require('./utils/pricing');
+const { generateInvoicePDF } = require('./services/pdfService');
+const { sendInvoiceEmail } = require('./services/emailService');
 
 // POST /api/invoices - Create sale invoice
 router.post('/', authenticate, authorize('owner', 'admin', 'cashier'),
@@ -222,6 +224,66 @@ router.get('/:id', authenticate, asyncHandler(async (req, res) => {
     success: true,
     invoice: invoiceWithRupees
   });
+}));
+
+// GET /api/invoices/:id/pdf - Download invoice as PDF
+router.get('/:id/pdf', authenticate, asyncHandler(async (req, res) => {
+  try {
+    const invoice = await getInvoiceWithItems(req.params.id);
+
+    if (!invoice) {
+      return res.status(404).json({ error: 'Invoice not found' });
+    }
+
+    // Generate PDF
+    const pdfBuffer = await generateInvoicePDF(req.params.id);
+
+    // Set response headers for PDF download
+    res.contentType('application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="Invoice_${invoice.invoice_number}.pdf"`);
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    res.status(500).json({ error: 'Failed to generate PDF' });
+  }
+}));
+
+// POST /api/invoices/:id/email - Send invoice via email
+router.post('/:id/email', authenticate, authorize('owner', 'admin', 'cashier'), asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email address is required' });
+    }
+
+    const invoice = await getInvoiceWithItems(req.params.id);
+
+    if (!invoice) {
+      return res.status(404).json({ error: 'Invoice not found' });
+    }
+
+    // Generate PDF
+    const pdfBuffer = await generateInvoicePDF(req.params.id);
+
+    // Send email
+    const result = await sendInvoiceEmail(email, invoice, pdfBuffer);
+
+    if (result.sent) {
+      res.json({
+        success: true,
+        message: `Invoice sent to ${email}`
+      });
+    } else {
+      res.status(500).json({
+        error: 'Failed to send email',
+        details: result.error
+      });
+    }
+  } catch (error) {
+    console.error('Error sending invoice email:', error);
+    res.status(500).json({ error: 'Failed to send invoice' });
+  }
 }));
 
 module.exports = router;

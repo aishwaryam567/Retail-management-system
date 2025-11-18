@@ -1,12 +1,168 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://rsms.me/inter/inter.css');
+
+@import "tailwindcss";
+
+/* Design Tokens */
+:root {
+  --color-primary-500: #FF9500;
+  --color-secondary-500: #464DA2;
+  --color-accent-500: #8F6FFF;
+  --color-success-500: #12B981;
+  --color-warning-500: #F59E0B;
+  --color-danger-500: #EF4444;
+  --color-neutral-900: #111827;
+  --color-neutral-700: #374151;
+  --color-neutral-500: #6B7280;
+  --color-neutral-100: #F3F4F6;
+  --color-neutral-0: #FFFFFF;
+
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-neutral-900);
+  background-color: var(--color-neutral-0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography System - Using standard CSS */
+.text-heading-4xl {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-neutral-900);
+  line-height: 40px;
+  letter-spacing: -0.5px;
+}
+
+.text-heading-3xl {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-neutral-900);
+  line-height: 36px;
+  letter-spacing: -0.4px;
+}
+
+.text-heading-2xl {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--color-neutral-900);
+  line-height: 30px;
+  letter-spacing: -0.3px;
+}
+
+.text-heading-xl {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-neutral-900);
+  line-height: 28px;
+  letter-spacing: -0.2px;
+}
+
+.text-heading-lg {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+  line-height: 24px;
+}
+
+.text-heading-md {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+  line-height: 20px;
+}
+
+.text-heading-sm {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+  line-height: 18px;
+  letter-spacing: 0.2px;
+}
+
+.text-body-lg {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-neutral-700);
+  line-height: 24px;
+}
+
+.text-body-md {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-neutral-700);
+  line-height: 20px;
+}
+
+.text-body-sm {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-neutral-600);
+  line-height: 18px;
+  letter-spacing: 0.2px;
+}
+
+.text-body-xs {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-neutral-500);
+  line-height: 16px;
+  letter-spacing: 0.3px;
+}
+
+/* Interactive States */
+.transition-interactive {
+  transition: all 200ms ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
 }

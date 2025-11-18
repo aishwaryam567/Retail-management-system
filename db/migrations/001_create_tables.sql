@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
   full_name TEXT,
   role TEXT NOT NULL CHECK (role IN ('owner','admin','cashier','stock_manager')),
   created_at TIMESTAMPTZ DEFAULT now(),

@@ -143,20 +143,22 @@ router.get('/inventory', authenticate, authorize('owner', 'admin'), asyncHandler
     query = query.eq('category_id', category_id);
   }
 
-  if (low_stock_only === 'true') {
-    query = query.filter('current_stock', 'lte', 'reorder_level');
-  }
-
   const { data: products, error } = await query.order('current_stock', { ascending: true });
 
   if (error) throw error;
+
+  // Filter for low stock if requested (after fetching)
+  let filteredProducts = products;
+  if (low_stock_only === 'true') {
+    filteredProducts = products.filter(p => p.current_stock <= (p.reorder_level || 0));
+  }
 
   // Calculate inventory value
   let totalValue = 0;
   let lowStockCount = 0;
   let outOfStockCount = 0;
 
-  const formattedProducts = products.map(p => {
+  const formattedProducts = filteredProducts.map(p => {
     const value = (p.current_stock || 0) * (p.purchase_price_paise || 0);
     totalValue += value;
 
@@ -181,7 +183,7 @@ router.get('/inventory', authenticate, authorize('owner', 'admin'), asyncHandler
   res.json({
     success: true,
     summary: {
-      total_products: products.length,
+      total_products: filteredProducts.length,
       total_inventory_value: paiseToRupees(totalValue),
       low_stock_items: lowStockCount,
       out_of_stock_items: outOfStockCount
